@@ -45,20 +45,20 @@ export default {
 <style scoped>
     div {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     input {
-        width: 500px;
-        margin-left: 50%;
-        transform: translateX(-50%);
+        width: 60%;
         margin-bottom: 10px;
     }
     p {
-        margin-left: 50%;
         height: 32px;
         line-height: 32px;
-        transform: translateX(-50%);
         text-align: center;
-        width: 500px;
+        width: 60%;
         border: 1px black solid;
     }
 
@@ -68,5 +68,9 @@ export default {
 
     p.error {
         color: crimson
+    }
+
+    child {
+        width: 100%;
     }
 </style>

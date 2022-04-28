@@ -16,9 +16,10 @@ export default {
         display: flex;
         justify-content: center;
         align-content: center;
+        width: 100%;
     }
     img {
-        width: 500px;
+        width: 60%;
     }
 </style>
 
