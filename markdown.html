@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Marked in the browser</title>
+    <link rel="icon" href="https://tva1.sinaimg.cn/large/007YVyKcly1h1w6fc670zj301c01ct8i.jpg">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css/github-markdown.min.css" />
+    <style>
+      .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 45px;
+      }
+    </style>
+</head>
+<body>
+    <article class="markdown-body">
+        <div id="content"></div>
+    </article>
+</body>
+</html>
+<script>
+    let url = new URL(window.location.href)
+    let s = url.searchParams.get("s")
+    if (s !== null) {
+        fetch(s)
+            .then(res => {  //响应变成text
+                if (res.ok) {
+                    res.text().then(res => {
+                        document.getElementById('content').innerHTML = marked.parse(res);
+                    })
+                }
+            })
+    } else {
+        url.searchParams.set("s", "https://raw.githubusercontent.com/wuuconix/wuuconix/main/README.md")
+        console.log(url)
+        window.location.replace(url.href)
+    }
+</script>
