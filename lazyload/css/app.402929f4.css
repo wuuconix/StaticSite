@@ -1,0 +1,1 @@
+*{margin:0;padding:0}div.outer{max-width:980px;min-width:200px;margin:0 auto;display:flex;flex-direction:column;justify-content:center;align-items:center;border:1px solid #000}img{width:80%;margin:50vh auto}img:first-child{margin-top:50vh;transform:translateY(-50%)}
