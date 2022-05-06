@@ -10,13 +10,15 @@ export default {
     data() {
         return {
             imgList: [],
-            handle_scroll_d: this.debounce(this.handle_scroll, 200),
-            default_src: "https://tvax1.sinaimg.cn/large/007kZ47kgy1gqizz0ipr0g30f008f7wj.gif"
+            handle_scroll_d: this.debounce(this.handle_scroll2, 200),
+            default_src: "https://tvax1.sinaimg.cn/large/007kZ47kgy1gqizz0ipr0g30f008f7wj.gif",
+            observer: new IntersectionObserver(this.handle_observe)
         }
     },
     mounted() {
         window.addEventListener("scroll", this.handle_scroll_d)
         window.scrollTo(0, 1)
+        // Array.from(this.imgList).forEach(item => this.observer.observe(item))
     },
     methods: {
         handle_scroll() {
@@ -27,6 +29,15 @@ export default {
                 let imgTop = img.offsetTop //图片的上边界
                 let imgBottom = img.offsetTop + img.height //图片下界
                 if (img.src == this.default_src && imgBottom >= top && imgTop <= bottom) {
+                    img.src = "https://conix.ml/?no-store=1"
+                }
+            }
+        },
+        handle_scroll2() {
+            for(let i = 0; i < this.imgList.length; i++) {
+                let img = this.imgList[i]
+                let imgRelativeTop = img.getBoundingClientRect().top
+                if (img.src == this.default_src && imgRelativeTop >= -img.height && imgRelativeTop <= document.documentElement.clientHeight) { //出现在视窗中
                     img.src = "https://conix.ml/?no-store=1"
                 }
             }
@@ -45,6 +56,16 @@ export default {
         setImgList(el) {
             if (el)
                 this.imgList.push(el)
+        },
+        handle_observe(changes) {
+            for (let i = 0; i < changes.length; i++) {
+                let change = changes[i]
+                if (change.isIntersecting) {
+                    const imgEle = change.target
+                    imgEle.src = "https://conix.ml/?no-store"
+                    this.observer.unobserve(imgEle)
+                }
+            }
         }
     }
 }
@@ -67,7 +88,7 @@ export default {
     }
     img {
         width: 80%;
-        margin: 50vh auto;
+        margin: 30vh auto;
     }
     img:nth-child(1) {
         margin-top: 50vh;
