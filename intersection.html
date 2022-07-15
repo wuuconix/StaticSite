@@ -1,0 +1,65 @@
+<head>
+    <title>判断一个元素在视窗内</title>
+    <meta charset="utf-8">
+</head>
+<div class="container"></div>
+
+<script>
+
+const container = document.querySelector(".container")
+container.innerHTML = "<div class='target'></div>".repeat(1000)
+
+/**
+* 手动判断元素是否在浏览器视窗内
+* @param {*} element 
+*/
+function isViewed(element) {
+    const viewWidth = document.body.clientWidth
+    const viewHeight = document.body.clientHeight
+    const { top, right, bottom, left } = element.getBoundingClientRect()
+    return top >= -element.clientHeight && left >= -element.clientWidth && right <= viewWidth + element.clientWidth && bottom <= viewHeight + element.clientHeight
+}
+
+/* 手动判断 */
+// window.addEventListener("scroll", () => {
+//     console.log("scroll!")
+//     document.querySelectorAll(".target").forEach(ele => {
+//         if (isViewed(ele)) {
+//             ele.style.backgroundColor="aliceblue"
+//         } else {
+//             ele.style.backgroundColor="gray"
+//         }
+//     })
+// })
+
+/* IntersectionObserver 性能远高于手动去判断是否在视窗内 */
+const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry) => {
+        const { target, isIntersecting } = entry
+        if (isIntersecting) {
+            target.style.backgroundColor = "aliceblue"
+        } else {
+            target.style.backgroundColor = "gray"
+        }
+    })
+}, { threshold: 0 })
+
+document.querySelectorAll(".target").forEach(ele => {
+    observer.observe(ele)
+})
+
+</script>
+
+<style>
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .target {
+        margin: 5px;
+        width: 50px;
+        height: 50px;
+        background-color: gray;
+    }
+</style>
